@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/general-sans.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Franklin:wght@300;400;700;800&display=swap');
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Hurricanes and Typhoons, 1851-2014</h1> -->
+    <div id="vizWrapper">
+      <svg id="map">
+        <rect id="ocean" x="0" y="0" fill="#8AAAE5" />
+      </svg>
+      <div id="tooltip"></div>
+    </div>
+    <div id="brush"></div>
+
+    <div class="side-panel">
+      <div class="text-panel">
+        <div class="title">
+          Atlantic Hurricane Tracker,<br />
+          1851 – 2017
+        </div>
+        <div class="designer">By Muxing Chen</div>
+        <div class="main-text">
+          <div class="text">
+            A hurricane tracker that enables users to trace the <br />paths of
+            Atlantic hurricanes from 1851 to 2017.
+          </div>
+          <div class="text">
+            <span class="text-highlight1">Hover</span> over the data points to
+            preview the paths. <br /><span class="text-highlight2">Click</span>
+            to fire the animations.
+          </div>
+        </div>
+        <div class="references">
+          <div class="dataSource">
+            Source: <br />
+            <a href="https://www.nhc.noaa.gov/"
+              >NOAA, U.S. National Weather Service, U.S. National Hurricane
+              Center</a
+            >
+          </div>
+          <div class="inspirations">
+            Inspirations: <br />
+            <a href="https://observablehq.com/@onoratod/animate-a-path-in-d3"
+              >@Danny, "Animate a Path in D3", observablehq.com</a
+            ><br />
+            <a
+              href="https://observablehq.com/@efrymire/temperature-contour-density-map"
+              >@efrymire, "Temperature Contour Density Map", observablehq.com</a
+            ><br />
+            <a
+              href="https://www.washingtonpost.com/graphics/national/one-hundred-years-of-hurricanes/?tid=usw_passupdatepg"
+              >The Washington Post, "100 years of hurricanes hitting and missing
+              Florida, visualized"</a
+            ><br />
+          </div>
+        </div>
+      </div>
+
+      <div class="control-panel">
+        <div class="divider">1</div>
+        <button id="clearPathsBtn">Clear Paths</button>
+        <div class="divider">1</div>
+      </div>
+    </div>
+
+    <!-- <p>
+      Data source:
+      <a href="https://www.kaggle.com/datasets/noaa/hurricane-database">NOAA</a>
+    </p>
+    <p>
+      Inspiration source:
+      <a href="https://observablehq.com/@onoratod/animate-a-path-in-d3"
+        >Danny</a
+      >
+    </p> -->
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
