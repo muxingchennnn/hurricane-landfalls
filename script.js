@@ -177,15 +177,16 @@ Promise.all([
   })
   // --------------------------------------------------------------
   // Draw contours
-  const contours = drawContours({
-    container: svg,
-    width: width,
-    height: height,
-    projection: projection,
-    data: landfallMajorData,
-    bandwidth: 50,
-    threshold: 50,
-  })
+
+  // const contours = drawContours({
+  //   container: svg,
+  //   width: width,
+  //   height: height,
+  //   projection: projection,
+  //   data: landfallMajorData,
+  //   bandwidth: 50,
+  //   threshold: 50,
+  // })
 
   // --------------------------------------------------------------
   // Brush
