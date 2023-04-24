@@ -16,7 +16,7 @@ const drawContours = function ({
     .bandwidth(bandwidth)
     .thresholds(threshold)(data)
 
-  console.log('🚀 ~ file: script.js:120 ~ contoursData:', contoursData)
+  // console.log('🚀 ~ file: script.js:120 ~ contoursData:', contoursData)
 
   const colorScale = d3
     .scaleOrdinal()
@@ -30,7 +30,7 @@ const drawContours = function ({
 
   const contours = container
     .append('g')
-    .attr('class', 'dataPoints')
+    .attr('class', 'contours')
     .attr('clip-path', 'url(#usClipPath)')
     .attr('fill', 'none')
     .selectAll('path')

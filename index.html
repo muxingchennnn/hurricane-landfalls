@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Atlantic Hurricane Tracker</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
@@ -24,66 +24,179 @@
     <div id="brush"></div>
 
     <div class="side-panel">
-      <div class="text-panel">
+      <div class="intro-component">
         <div class="title">
-          Atlantic Hurricane Tracker,<br />
+          Atlantic Hurricane Landfalls,<br />
           1851 – 2017
         </div>
         <div class="designer">By Muxing Chen</div>
         <div class="main-text">
           <div class="text">
-            A hurricane tracker that enables users to trace the <br />paths of
-            Atlantic hurricanes from 1851 to 2017.
-          </div>
-          <div class="text">
-            <span class="text-highlight1">Hover</span> over the data points to
-            preview the paths. <br /><span class="text-highlight2">Click</span>
-            to fire the animations.
-          </div>
-        </div>
-        <div class="references">
-          <div class="dataSource">
-            Source: <br />
-            <a href="https://www.nhc.noaa.gov/"
-              >NOAA, U.S. National Weather Service, U.S. National Hurricane
-              Center</a
-            >
-          </div>
-          <div class="inspirations">
-            Inspirations: <br />
-            <a href="https://observablehq.com/@onoratod/animate-a-path-in-d3"
-              >@Danny, "Animate a Path in D3", observablehq.com</a
-            ><br />
-            <a
-              href="https://observablehq.com/@efrymire/temperature-contour-density-map"
-              >@efrymire, "Temperature Contour Density Map", observablehq.com</a
-            ><br />
-            <a
-              href="https://www.washingtonpost.com/graphics/national/one-hundred-years-of-hurricanes/?tid=usw_passupdatepg"
-              >The Washington Post, "100 years of hurricanes hitting and missing
-              Florida, visualized"</a
-            ><br />
+            This visualization tool enables users to explore hurricane landfalls from 1851 to 2017.<br /><br />
+            Users can change the data input by <i>clicking</i> the radio button below or <i>brushing</i> the area chart at the bottom. In addition, two types of techniques are available for users to choose and play around with the corresponding parameters. Hurricane path will show up when <i>hovering</i> over the dots, and start the animation when <i>clicking</i> them.
+            
           </div>
         </div>
       </div>
+      <div class="control-component">
+        <div class="divider"></div>
+        <div class="tab-wrapper">
+          
 
-      <div class="control-panel">
-        <div class="divider">1</div>
-        <button id="clearPathsBtn">Clear Paths</button>
-        <div class="divider">1</div>
+          <div class="data-tab">
+            <div class="tab-title">Data:</div>
+            <div class="data-option">
+              <div>
+                <input type="radio" name="data-source1" value="all" /> All
+                landfalls
+              </div>
+              <div>
+                <input type="radio" name="data-source1" value="major" checked />
+                Major Hurricanes landfalls
+              </div>
+            </div>
+          </div>
+          <div class="encoding-tab">
+            <div class="tab-title">Techniques:</div>
+            <div class="option-wrapper">
+              <div class="option-dot">
+                <label>
+                  <input type="radio" name="encoding" value="dots" checked /> dots
+                </label>
+                <div class="parameter-wrapper">
+                  <div class="parameter parameter-dots parameter-dots-property">
+                    
+                      <label>dot size:<br/>
+                        <input
+                        type="range"
+                        name="slider"
+                        id="sizeSlider"
+                        min="1"
+                        max="10"
+                        value="8"
+                      />
+                      </label>
+                  
+                      <label>dot opacity:<br/>
+                        <input
+                        type="range"
+                        name="slider"
+                        id="opacitySlider"
+                        min="0.1"
+                        max="1"
+                        step="0.1"
+                        value="0.5"
+                      />
+                      </label>
+                    
+                  </div>
+  
+                  <div class="parameter parameter-dots parameter-dots-animation">
+                    <label>animation speed:<br/>
+                      <input
+                        type="range"
+                        name="slider"
+                        id="speedSlider"
+                        min="100"
+                        max="700"
+                        step="100"
+                        value="200"
+                      />
+                      </label>
+
+                      <label>clear paths:<br>
+                        <button class="clearPathsBtn">Clear Paths</button>
+                      </label>
+                      
+                  </div>
+                </div>
+              </div>
+              <div class="option-contour">
+                
+                <label>
+                  <input type="radio" name="encoding" value="contours" /> contours
+                </label>
+                <div class="parameter parameter-contours">
+                  <label>
+                    <div>bandwidth:</div>
+                    <input
+                    type="range"
+                    name="slider"
+                    id="bandwidthSlider"
+                    min="1"
+                    max="100"
+                    step="1"
+                    value="50"
+                  />
+                  </label>
+                  <label>threshold:<br/>
+                  <input
+                    type="range"
+                    name="slider"
+                    id="thresholdSlider"
+                    min="1"
+                    max="100"
+                    step="1"
+                    value="50"
+                  />
+                  </label>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+      </div>
+      <div class="source-component">
+        <div class="dataSource">
+          Data Source: <br />
+          <a href="https://www.nhc.noaa.gov/"
+            >NOAA, U.S. National Weather Service, U.S. National Hurricane
+            Center</a
+          >
+        </div>
+        <div class="inspirations">
+          Inspirations: <br />
+          <a
+            href="https://coast.noaa.gov/hurricanes/#map=4/32/-80"
+            >NOAA, <i>Historical Hurricane Tracks</i>
+            <br
+          />
+          <a
+            href="https://www.axios.com/2018/09/13/florence-map-shows-every-major-hurricane-to-hit-carolinas"
+            >Harry Stevens,
+            <i
+              >Every major hurricane to hit the Carolina-Virginia coast since 1851</i
+            >, Axios<br
+          />
+          <a
+            href="https://www.washingtonpost.com/graphics/national/one-hundred-years-of-hurricanes/?tid=usw_passupdatepg"
+            >The Washington Post,
+            <i
+              >100 years of hurricanes hitting and missing Florida,
+              visualized</i
+            ><br
+          /></a>
+          <a href="https://observablehq.com/@onoratod/animate-a-path-in-d3"
+            >@onoratod, <i>Animate a Path in D3</i>, observablehq.com</a
+          ><br />
+          <a
+            href="https://observablehq.com/@efrymire/temperature-contour-density-map"
+            >@efrymire, <i>Temperature Contour Density Map</i>,
+            observablehq.com</a
+          ><br />
+          <a
+            href="https://observablehq.com/@d3/double-click-brush-clear"
+            >@mbostock, <i>Double-Click to Brush</i>,
+            observablehq.com</a
+          ><br />
+        </div>
       </div>
     </div>
 
-    <!-- <p>
-      Data source:
-      <a href="https://www.kaggle.com/datasets/noaa/hurricane-database">NOAA</a>
-    </p>
-    <p>
-      Inspiration source:
-      <a href="https://observablehq.com/@onoratod/animate-a-path-in-d3"
-        >Danny</a
-      >
-    </p> -->
+
     <script type="module" src="./script.js"></script>
   </body>
 </html>
