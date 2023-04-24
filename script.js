@@ -150,7 +150,7 @@ Promise.all([
     .domain([yearDomainMin, yearDomainMax])
     .range([0, brushWidth])
 
-  // the grids
+  // the line on the left
   brushSvg
     .append('g')
     .attr('class', 'brush-grid-left')
@@ -172,6 +172,7 @@ Promise.all([
     .attr('text-anchor', 'start')
     .call((g) => g.select('.domain').remove())
 
+  // the line on the right
   brushSvg
     .append('g')
     .attr('class', 'brush-grid-right')
@@ -214,22 +215,24 @@ Promise.all([
     .selectAll('text')
     .attr('x', 0)
 
-  // append label of x-axis
-  brushSvg
-    .append('text')
-    .attr('class', 'brush-yAxis')
-    .attr('text-anchor', 'end')
-    .attr('x', 0)
-    .attr('y', -100)
-    .text('Year')
-    .attr('text-anchor', 'start')
+  // // append label of y-axis
+  // brushSvg
+  //   .append('text')
+  //   .attr('class', 'brush-yAxis-label')
+  //   .attr('x', 10)
+  //   .attr('y', 10)
+  //   .text('Year')
+  //   .attr('text-anchor', 'start')
 
   // area chart
+
+  // data processing for area chart
   const stack = d3.stack().keys(['Minor', 'Major'])
   const stackColor = ['#5185A1', '#C5284D']
   const stackedData = stack(areaData)
   const areaHeight = brushHeight - 30
 
+  // area chart scales
   const areaScaleX = brushScale
   const areaScaleY = d3
     .scaleLinear()
@@ -259,22 +262,26 @@ Promise.all([
   // --------------------------------------------------------------
   // Interactions
 
+  // scale for width of the paths
   const strokeWidthScale = d3
     .scaleOrdinal()
     .domain(['0', '1', '2', '3', '4', '5'])
     .range(['1px', '4px', '7px', '10px', '15px', '20px'])
 
+  // scale for color of the paths
   const strokeColorScale = d3
     .scaleOrdinal()
     .domain(['0', '1', '2', '3', '4', '5'])
     .range(['#5185A1', '#5185A1', '#5185A1', '#C5284D', '#C5284D', '#C5284D'])
 
+  // projection for the paths
   const lineProjection = d3
     .line()
     .x((d) => projection([d.Longtitude, d.Latitude])[0])
     .y((d) => projection([d.Longtitude, d.Latitude])[1])
     .curve(d3.curveBasis)
 
+  // hover effect
   function mouseover(e, d) {
     let id = d
     let thisPath = hurricaneGroupedByID.find((d) => d[0] === id.ID)
@@ -300,6 +307,7 @@ Promise.all([
     dots.attr('opacity', 1)
   }
 
+  // path animation
   function click(e, d) {
     // retrieve all the data point on a single path based on the select point
     let id = d
@@ -359,6 +367,7 @@ Promise.all([
     pathAnimation({})
   }
 
+  // initialize the state of variables
   let dataState = landfallMajorData
   let encodingState = 'dots'
   let dataPointer = 'major'
@@ -369,21 +378,7 @@ Promise.all([
   let animationSpeedState = 200
   let clearState = false
 
-  const clearBtn = document.querySelector('button')
-  clearBtn.addEventListener('click', function (e, d) {
-    clearState = true
-    setTimeout(() => {
-      d3.selectAll('.hurricanePathAnimation')
-        .transition()
-        .ease(d3.easeSinOut)
-        .duration(100)
-        .style('stroke-opacity', 0)
-        .transition()
-        .duration(200)
-        .remove() // remove paths
-    }, animationSpeedState)
-  })
-
+  // clicking the data input radio button
   d3.selectAll("input[name='data-source1']").on('change', function () {
     dataPointer = d3
       .select('input[name="data-source1"]:checked')
@@ -393,6 +388,7 @@ Promise.all([
     state({ data: data })
   })
 
+  // clicking the encoding radio button and show/hide parameters of the encoding
   d3.selectAll("input[name='encoding']").on('change', function () {
     const encoding = d3
       .select('input[name="encoding"]:checked')
@@ -411,31 +407,53 @@ Promise.all([
     })
   })
 
+  // input of dot size
   d3.select('#sizeSlider').on('change', function () {
     const size = this.value
     state({ dotSize: size })
   })
 
+  // input of dot opacity
   d3.select('#opacitySlider').on('change', function () {
     const opacity = this.value
     state({ dotOpacity: opacity })
   })
 
+  // input of contour bandwidth
   d3.select('#bandwidthSlider').on('change', function () {
     const bandwidth = this.value
     state({ contourBandwidth: bandwidth })
   })
 
+  // input of contour threshold
   d3.select('#thresholdSlider').on('change', function () {
     const threshold = this.value
     state({ contourThreshold: threshold })
   })
 
+  // input of animation speed
   d3.select('#speedSlider').on('change', function () {
     const speed = this.value
     state({ animationSpeed: speed })
   })
 
+  // button of clearing paths
+  const clearBtn = document.querySelector('button')
+  clearBtn.addEventListener('click', function (e, d) {
+    clearState = true
+    setTimeout(() => {
+      d3.selectAll('.hurricanePathAnimation')
+        .transition()
+        .ease(d3.easeSinOut)
+        .duration(100)
+        .style('stroke-opacity', 0)
+        .transition()
+        .duration(200)
+        .remove() // remove paths
+    }, animationSpeedState)
+  })
+
+  // set up the brush
   const brush = d3
     .brushX()
     .extent([
@@ -452,6 +470,7 @@ Promise.all([
     .on('dblclick', dblclicked)
   // .call(brush.move, defaultExtent)
 
+  // brush behaviour
   function brushed({ sourceEvent, selection }) {
     const data = dataPointer === 'major' ? landfallMajorData : landfallData
     if (!sourceEvent) return
@@ -468,6 +487,7 @@ Promise.all([
     }
   }
 
+  // double click brush behavior
   function dblclicked() {
     const selection = d3.brushSelection(this) ? null : brushScale.range()
     const data = dataPointer === 'major' ? landfallMajorData : landfallData
@@ -479,6 +499,7 @@ Promise.all([
     state({ data: dataBrushed })
   }
 
+  // update the state of varaibles and the visualization
   function state({
     data,
     encoding,
@@ -518,7 +539,7 @@ Promise.all([
     update()
   }
 
-  //initialize the state
+  //initialize the visualization
   state({
     data: dataState,
     encoding: encodingState,
@@ -564,9 +585,7 @@ Promise.all([
       })
       return contours
     }
-    console.log(dots)
   }
-  // console.log(dots)
 
   // --------------------------------------------------------------
   // Zoom
