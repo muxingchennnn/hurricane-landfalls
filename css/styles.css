@@ -44,7 +44,7 @@ brush */
 .side-panel {
   /* background-color: aqua; */
   position: absolute;
-  top: 8%;
+  top: 7%;
   right: 0;
   width: 500px;
   display: flex;
