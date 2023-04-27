@@ -394,6 +394,7 @@ Promise.all([
       .select('input[name="encoding"]:checked')
       .property('value')
 
+    // hide parameters of each encoding
     document
       .querySelectorAll('.parameter')
       .forEach((d) => (d.style.display = 'none'))
