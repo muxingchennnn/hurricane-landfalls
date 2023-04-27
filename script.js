@@ -439,7 +439,23 @@ Promise.all([
 
   // button of clearing paths
   const clearBtn = document.querySelector('button')
-  clearBtn.addEventListener('click', function (e, d) {
+  // clearBtn.addEventListener('click', function (e, d) {
+  //   clearState = true
+  //   setTimeout(() => {
+  //     d3.selectAll('.hurricanePathAnimation')
+  //       .transition()
+  //       .ease(d3.easeSinOut)
+  //       .duration(100)
+  //       .style('stroke-opacity', 0)
+  //       .transition()
+  //       .duration(200)
+  //       .remove() // remove paths
+  //   }, animationSpeedState)
+  // })
+
+  clearBtn.addEventListener('click', clearPaths)
+
+  function clearPaths() {
     clearState = true
     setTimeout(() => {
       d3.selectAll('.hurricanePathAnimation')
@@ -451,7 +467,7 @@ Promise.all([
         .duration(200)
         .remove() // remove paths
     }, animationSpeedState)
-  })
+  }
 
   // set up the brush
   const brush = d3
@@ -555,7 +571,8 @@ Promise.all([
     // console.log(encoding)
     svg.selectAll('.dots').remove()
     svg.selectAll('.contours').remove()
-    d3.selectAll('.hurricanePathAnimation').remove()
+    // d3.selectAll('.hurricanePathAnimation').remove()
+    clearPaths()
 
     if (encodingState === 'dots') {
       const dots = drawDots({
