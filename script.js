@@ -216,13 +216,13 @@ Promise.all([
     .attr('x', 0)
 
   // // append label of y-axis
-  // brushSvg
-  //   .append('text')
-  //   .attr('class', 'brush-yAxis-label')
-  //   .attr('x', 10)
-  //   .attr('y', 10)
-  //   .text('Year')
-  //   .attr('text-anchor', 'start')
+  brushSvg
+    .append('text')
+    .attr('class', 'brush-yAxis-label')
+    .attr('x', 10)
+    .attr('y', 10)
+    .text('Year')
+    .attr('text-anchor', 'start')
 
   // area chart
 
@@ -298,13 +298,13 @@ Promise.all([
       .attr('stroke-width', '1px')
       .attr('stroke-opacity', 0.05)
 
-    dots.attr('opacity', 0.1)
-    d3.select(this).attr('opacity', 1).raise()
+    // dots.attr('opacity', 0.1)
+    // d3.select(this).attr('opacity', 1).raise()
   }
 
   function mouseout(e, d) {
     d3.selectAll('.hurricanePath').attr('stroke-opacity', 0).remove() // remove paths
-    dots.attr('opacity', 1)
+    // dots.attr('opacity', 1)
   }
 
   // path animation
@@ -322,7 +322,7 @@ Promise.all([
     }
 
     async function pathAnimation() {
-      console.log(animationSpeedState)
+      // console.log({ animationSpeedState })
       for (let i = 0; i < thisPath[1].length - 1; i++) {
         // add time delay between iterations
         if (!clearState) {
@@ -367,7 +367,7 @@ Promise.all([
     pathAnimation({})
   }
 
-  // initialize the state of variables
+  // default state value of variables
   let dataState = landfallMajorData
   let encodingState = 'dots'
   let dataPointer = 'major'
@@ -440,20 +440,6 @@ Promise.all([
 
   // button of clearing paths
   const clearBtn = document.querySelector('button')
-  // clearBtn.addEventListener('click', function (e, d) {
-  //   clearState = true
-  //   setTimeout(() => {
-  //     d3.selectAll('.hurricanePathAnimation')
-  //       .transition()
-  //       .ease(d3.easeSinOut)
-  //       .duration(100)
-  //       .style('stroke-opacity', 0)
-  //       .transition()
-  //       .duration(200)
-  //       .remove() // remove paths
-  //   }, animationSpeedState)
-  // })
-
   clearBtn.addEventListener('click', clearPaths)
 
   function clearPaths() {
@@ -462,11 +448,9 @@ Promise.all([
       d3.selectAll('.hurricanePathAnimation')
         .transition()
         .ease(d3.easeSinOut)
-        .duration(100)
+        .duration(50)
         .style('stroke-opacity', 0)
-        .transition()
-        .duration(200)
-        .remove() // remove paths
+        .remove()
     }, animationSpeedState)
   }
 
@@ -526,32 +510,13 @@ Promise.all([
     contourThreshold,
     animationSpeed,
   }) {
-    if (data !== undefined) {
-      dataState = data
-    }
-    if (encoding !== undefined) {
-      encodingState = encoding
-    }
-
-    if (dotSize !== undefined) {
-      dotSizeState = dotSize
-    }
-
-    if (dotOpacity !== undefined) {
-      dotOpacityState = dotOpacity
-    }
-
-    if (contourBandwidth !== undefined) {
-      contourBandwidthState = contourBandwidth
-    }
-
-    if (contourThreshold !== undefined) {
-      contourThresholdState = contourThreshold
-    }
-
-    if (animationSpeed !== undefined) {
-      animationSpeedState = animationSpeed
-    }
+    if (data !== undefined) dataState = data
+    if (encoding !== undefined) encodingState = encoding
+    if (dotSize !== undefined) dotSizeState = dotSize
+    if (dotOpacity !== undefined) dotOpacityState = dotOpacity
+    if (contourBandwidth !== undefined) contourBandwidthState = contourBandwidth
+    if (contourThreshold !== undefined) contourThresholdState = contourThreshold
+    if (animationSpeed !== undefined) animationSpeedState = animationSpeed
 
     update()
   }

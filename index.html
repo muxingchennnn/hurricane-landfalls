@@ -32,17 +32,25 @@
         <div class="designer">By Muxing Chen</div>
         <div class="main-text">
           <div class="text">
-            This visualization enables users to explore hurricane landfalls from 1851 to 2017. The area chart depicts the frequency of hurricane activities over year while the map shows the spatial distribution of hurricane landfalls.<br /><br />
-            Users can change the data input by <i>clicking</i> the radio button below or <i>brushing</i> the area chart at the bottom. In addition, two types of techniques are available for users to choose and play around with the related parameters. Hurricane paths will show up when <i>hovering</i> over the dots, and start the animation by <i>clicking</i> them.
-            
+            This visualization enables users to explore hurricane landfalls from
+            1851 to 2017. The area chart depicts the frequency of hurricane
+            activities over year while the map shows the spatial distribution of
+            hurricane landfalls.<br /><br />
+            Users can play around with the following interactions:
+            <br />1. <strong>HOVER</strong> over the dots and
+            <strong>CLICK</strong> to trigger path animations <br />2.
+            <strong>CLICK</strong> the corresponding radio buttons to switch
+            visualization techniques and <strong>DRAG</strong> sliders to play
+            around with related parameters <br />3. <strong>CLICK</strong> the
+            corresponding radio buttons to switch data sources or
+            <strong>BRUSH</strong> the area chart at the bottom to change data
+            input
           </div>
         </div>
       </div>
       <div class="control-component">
         <div class="divider"></div>
         <div class="tab-wrapper">
-          
-
           <div class="data-tab">
             <div class="tab-title">Data:</div>
             <div class="data-option">
@@ -61,13 +69,14 @@
             <div class="option-wrapper">
               <div class="option-dot">
                 <label>
-                  <input type="radio" name="encoding" value="dots" checked /> Dots
+                  <input type="radio" name="encoding" value="dots" checked />
+                  Dots
                 </label>
                 <div class="parameter-wrapper">
                   <div class="parameter parameter-dots parameter-dots-property">
-                    
-                      <label>dot size:<br/>
-                        <input
+                    <label
+                      >dot size:<br />
+                      <input
                         type="range"
                         name="slider"
                         id="sizeSlider"
@@ -75,10 +84,11 @@
                         max="10"
                         value="8"
                       />
-                      </label>
-                  
-                      <label>dot opacity:<br/>
-                        <input
+                    </label>
+
+                    <label
+                      >dot opacity:<br />
+                      <input
                         type="range"
                         name="slider"
                         id="opacitySlider"
@@ -87,12 +97,14 @@
                         step="0.1"
                         value="0.5"
                       />
-                      </label>
-                    
+                    </label>
                   </div>
-  
-                  <div class="parameter parameter-dots parameter-dots-animation">
-                    <label>animation speed:<br/>
+
+                  <div
+                    class="parameter parameter-dots parameter-dots-animation"
+                  >
+                    <label
+                      >animation speed:<br />
                       <input
                         type="range"
                         name="slider"
@@ -102,46 +114,46 @@
                         step="100"
                         value="200"
                       />
-                      </label>
+                    </label>
 
-                      <label>clear paths:<br>
-                        <button class="clearPathsBtn">Clear Paths</button>
-                      </label>
-                      
+                    <label
+                      >clear paths:<br />
+                      <button class="clearPathsBtn">Clear Paths</button>
+                    </label>
                   </div>
                 </div>
               </div>
               <div class="option-contour">
-                
                 <label>
-                  <input type="radio" name="encoding" value="contours" /> Contours
+                  <input type="radio" name="encoding" value="contours" />
+                  Contours
                 </label>
                 <div class="parameter parameter-contours">
                   <label>
                     <div>bandwidth:</div>
                     <input
-                    type="range"
-                    name="slider"
-                    id="bandwidthSlider"
-                    min="1"
-                    max="100"
-                    step="1"
-                    value="50"
-                  />
+                      type="range"
+                      name="slider"
+                      id="bandwidthSlider"
+                      min="1"
+                      max="100"
+                      step="1"
+                      value="50"
+                    />
                   </label>
-                  <label>threshold:<br/>
-                  <input
-                    type="range"
-                    name="slider"
-                    id="thresholdSlider"
-                    min="1"
-                    max="100"
-                    step="1"
-                    value="50"
-                  />
+                  <label
+                    >threshold:<br />
+                    <input
+                      type="range"
+                      name="slider"
+                      id="thresholdSlider"
+                      min="1"
+                      max="100"
+                      step="1"
+                      value="50"
+                    />
                   </label>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -157,7 +169,7 @@
             Center</a
           >
         </div>
-        <div class="inspirations">
+        <!-- <div class="inspirations">
           Inspirations: <br />
           <a
             href="https://coast.noaa.gov/hurricanes/#map=4/32/-80"
@@ -192,10 +204,9 @@
             >@mbostock, <i>Double-Click to Brush</i>,
             observablehq.com</a
           ><br />
-        </div>
+        </div> -->
       </div>
     </div>
-
 
     <script type="module" src="./script.js"></script>
   </body>
