@@ -223,6 +223,8 @@ Promise.all([
     .attr('y', 10)
     .text('Year')
     .attr('text-anchor', 'start')
+    .attr('fill', 'whitesmoke')
+    .attr('transform', `translate(-40,0)`)
 
   // area chart
 
@@ -258,6 +260,107 @@ Promise.all([
     .append('path')
     .style('fill', (d, i) => stackColor[i])
     .attr('d', (d) => areaGenerator(d))
+
+  // --------------------------------------------------------------
+  // Legends
+
+  // color legend
+
+  const colorLegendWidth = 320
+  const colorLegendHeight = 40
+  const legendMargin = 0
+  const legendSpacing = 20
+
+  const colorLegendCategories = [
+    'Major Hurricanes (categroy 3, 4, and 5)',
+    'Other Hurricanes (category 1, 2, and tropical storms)',
+  ]
+
+  const colorLegendSacle = d3
+    .scaleOrdinal()
+    .domain(colorLegendCategories)
+    .range(['#C5284D', '#5185A1'])
+
+  const colorLegend = d3
+    .select('#color-legend')
+    .append('svg')
+    .attr('width', colorLegendWidth)
+    .attr('height', colorLegendHeight)
+    // .attr('viewBox', [0, 0, colorLegendWidth, colorLegendHeight])
+    // .attr('preserveAspectRatio', 'xMidYMid meet')
+    .attr('transform', `translate(0, -${brushHeight + 10} )`)
+
+  colorLegendCategories.forEach(function (category, i) {
+    colorLegend
+      .append('circle')
+      .attr('cx', legendMargin + 5)
+      .attr('cy', legendMargin + i * legendSpacing + 10)
+      .attr('r', 5)
+      .attr('fill', colorLegendSacle(category))
+
+    colorLegend
+      .append('text')
+      .attr('class', 'legend--label')
+      .attr('x', legendMargin + 20)
+      .attr('y', legendMargin + i * legendSpacing + 15)
+      .style('fill', 'whitesmoke')
+      .text(category)
+  })
+
+  // path legend
+
+  const pathLegendCategories = [
+    'TS',
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
+    'Category 5',
+  ]
+
+  const pathLegendWidth = 600
+  const pathLegendHeight = 80
+  const pathLegendLen = 90
+
+  const pathLegend = d3
+    .select('#path-legend')
+    .append('svg')
+    .attr('width', pathLegendWidth)
+    .attr('height', pathLegendHeight)
+    // .attr('viewBox', [0, 0, colorLegendWidth, colorLegendHeight])
+    // .attr('preserveAspectRatio', 'xMidYMid meet')
+    .attr('transform', `translate(0, -${brushHeight + 40} )`)
+
+  const pathColorScale = d3
+    .scaleOrdinal()
+    .domain(pathLegendCategories)
+    .range(['#5185A1', '#5185A1', '#5185A1', '#C5284D', '#C5284D', '#C5284D'])
+
+  const pathWidthScale = d3
+    .scaleOrdinal()
+    .domain(pathLegendCategories)
+    .range(['1px', '4px', '7px', '10px', '15px', '20px'])
+
+  pathLegendCategories.forEach(function (category, i) {
+    pathLegend
+      .append('path')
+      .attr('d', `M ${i * pathLegendLen} 50 L ${(i + 1) * pathLegendLen} 50`)
+      .attr('stroke-width', pathWidthScale(category))
+      .attr('stroke', pathColorScale(category))
+
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-linecap', 'round')
+
+    pathLegend
+      .append('text')
+      .attr('class', 'legend--label')
+      .attr('x', i * pathLegendLen + 45)
+      .attr('y', 30)
+      .style('fill', 'whitesmoke')
+      .text(category)
+      .attr('text-anchor', 'middle')
+  })
+  // --------------------------------------------------------------
 
   // --------------------------------------------------------------
   // Interactions
@@ -590,5 +693,13 @@ Promise.all([
   //   dots.attr('transform', transform)
   //   contours.attr('transform', transform)
   // }
+  // --------------------------------------------------------------
+
+  // --------------------------------------------------------------
+  // refresh page when viewport changes
+
+  // const refreshPage = () => location.reload()
+  // window.addEventListener('resize', refreshPage)
+
   // --------------------------------------------------------------
 })
